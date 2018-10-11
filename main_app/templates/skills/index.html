@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Skills</h1>
+
+{% for skill in skills %}
+    <h3>{{ skill.name }}</h3>
+    <a href="{% url 'skills_detail' skill.id %}">{{skill.description }}</a>
+{% endfor %}
+
+{% endblock %}
