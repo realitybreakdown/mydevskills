@@ -5,14 +5,15 @@ from . models import Skill
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
-
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 # Create your views here.
 
 class SkillAdd(CreateView):
     model = Skill
     fields = '__all__'
-
+    
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.user = self.request.user
@@ -21,6 +22,7 @@ class SkillAdd(CreateView):
 
 def index(request):
     return render(request, 'index.html')
+
 
 def skills_index(request):
     skills = Skill.objects.all()
@@ -67,3 +69,4 @@ def signup_view(request):
 def skills_detail(request, skill_id):
         skill = Skill.objects.get(id=skill_id)
         return render(request, 'skills/detail.html', { 'skill': skill })
+
